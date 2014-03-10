@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<title>Room</title>
+		<link rel="stylesheet" href="https://raw2.github.com/mnafricano/chat-room/master/style.css">
+		<script src="http://backend.socialyou.co.vu:81/socket.io/socket.io.js"></script>
+		<script>
+			var Generated = prompt("Please enter your nick name:","");
+			var paths = window.location.pathname.split( '/' );
+			if(Generated === "" || Generated === null) {
+				var Generated = prompt("Please enter your nick name:","");
+			}
+			var sck = io.connect('http://backend.socialyou.co.vu:81');
+			function getRandomInt (min, max) {
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+			//var generate = getRandomInt(1,123456789101112);
+			//var Generated = generate;
+		
+			sck.emit('registerusertoroom', { userid: Generated, roomid: paths[1] });	
+				setTimeout(function () { document.getElementById('chat').innerHTML += "<b>"+Generated+", Welcome to room "+paths[1]+"!</b><br>"; }, 1000);
+			sck.on('message', function (data) {
+				if(data.roomid===paths[1] && data.action) {
+					document.getElementById('chat').innerHTML += "<i>* "+data.userid+" "+data.action+"</i><br>";
+				} else if(data.roomid===paths[1]) {
+					document.getElementById('chat').innerHTML += "<i>"+data.userid+": "+data.message+"</i><br>";
+				}
+			});
+			sck.on('djplay', function (data) {
+				if(data.roomid===paths[1]) {
+				if(data.video !== ''){
+				console.log(data);
+				var getDIV = document.getElementById('youtube');
+				getDIV.innerHTML = '<object width= "560" height="315"><param name="movie" value="http://www.youtube.com/v/'+data.video+'?version=3&autoplay=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/'+data.video+'?version=3&autoplay=1" type="application/x-shockwave-flash" allowfullscreen="true" width="560" height="315" allowscriptaccess="always"></embed></object>';
+				}
+				}
+			});
+			setTimeout(function () {sck.emit('getcurrentvid', { roomid: paths[1] }); }, 2000);
+			function vidPlay() {
+		//var getDIV = document.getElementById('youtube');
+				var getText = document.getElementById	('vidid');
+				sck.emit('userplayinroom', { videourl: vidid.value, roomid: paths[1] });
+				//getDIV.innerHTML = '<object width= "560" height="315"><param name="movie" value="http://www.youtube.com/v/'+vidid.value+'&autoplay=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/'+vidid.value+'&autoplay=1" type="application/x-shockwave-flash" allowfullscreen="true" width="560" height="315" allowscriptaccess="always"></embed></object>';
+			}
+			function sendMessage() {
+				var getText1 = document.getElementById	('text').value;
+				if(getText1 != '') {
+					sck.emit('messagetoroom', { userid: Generated, roomid: paths[1], message: getText1, action: '' });
+				}
+			}
+			function runScript(e) {
+    				if (e.keyCode == 13 || e.which == 13) {
+					sendMessage();
+    				}
+			}
+		
+		</script>
+</head>
+	<body>
+		<center>
+			<div id='userscount'></div>
+			<br>
+			<br>
+			<div id='youtube'></div><br>
+			<br>
+			<input type='text' id='vidid' placeholder='videoidhere' />
+			<button onclick='vidPlay()'>Play Video</button>
+			<br>
+			<br>
+			<div id='chat'></div>	
+			<br>
+			<br>
+			<input type='text' id='text' onkeypress="return runScript(event)" />
+			<button onclick='sendMessage()' >Send Message				</button>
+		</center>
+	</body>
+</html>
