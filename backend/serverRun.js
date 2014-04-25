@@ -17,9 +17,9 @@ io.sockets.on('connection', function (sck) {
 		sck.usrobj = sck;
 		sck.usrid = data.userid;
 		//Users[UCount] = {
-		//	userid: sck.usrid,		
+		//	userid: sck.usrid,
 		//	inRoom: Rooms[sck.roomid],
-		//	video: Rooms[sck.roomid].video 
+		//	video: Rooms[sck.roomid].video
 		//};
 		//Users[UCount] = sck.usr.obj;
 		//Rooms[sck.room.id].Users.push(Rooms[sck.roomid].UCount, sck.usrobj);
@@ -28,16 +28,16 @@ io.sockets.on('connection', function (sck) {
 		io.sockets.emit('updateusercount', { roomid: sck.roomid, roomuserscount: Rooms[sck.roomid].UCount });
 		} else {
 		Rooms[data.roomid] = {
-			
+
 			//Users: [],
-	
-			UCount: 0,					
-			
+
+			UCount: 0,
+
 			video: ''
-			
+
 		};
 		//Users[UCount] = {
-		//	userid: data.userid,		
+		//	userid: data.userid,
 		///	inRoom: Rooms[data.roomid],
 		//	video: ''
 		//};
@@ -47,12 +47,12 @@ io.sockets.on('connection', function (sck) {
 		//Users[UCount].userid = sck.usrid;
 		//Rooms[sck.roomid].Users.push(Rooms[sck.roomid].UCount, sck.usrobj);
 		//++Users[UCount];
-		++Rooms[sck.roomid].UCount;	
+		++Rooms[sck.roomid].UCount;
 		io.sockets.emit('updateusercount', { roomid: sck.roomid, roomuserscount: Rooms[sck.roomid].UCount });
 
 		}
 		} catch (err) {
-			console.log(err);						
+			console.log(err);
 		}
 	});
 	sck.on('userplayinroom', function (data) {
@@ -70,7 +70,7 @@ io.sockets.on('connection', function (sck) {
 			console.log(err);
 		}
 	})
-	sck.on('disconnect', function () { 
+	sck.on('disconnect', function () {
 		try {
 			--Rooms[sck.roomid].UCount;
 			io.sockets.emit('updateusercount', { roomid: sck.roomid, roomuserscount: Rooms[sck.roomid].UCount });
@@ -79,15 +79,15 @@ io.sockets.on('connection', function (sck) {
 		} catch (err) {
 			console.log(err);
 		}
-	});	
+	});
 
-sck.on('getcurrentvid', function (data) { 
+sck.on('getcurrentvid', function (data) {
 		try {
-			sck.emit('djplay', { roomid: data.roomid, video: Rooms[sck.roomid].video });		
+			sck.emit('djplay', { roomid: data.roomid, video: Rooms[sck.roomid].video });
 		} catch (err) {
 			console.log(err);
 		}
-	});	
+	});
 	sck.on('messagetoroom', function (data) {
 		if(data.action !== '') {
 		io.sockets.emit('message', { userid: data.userid, roomid: data.roomid, message: '', action: data.roomid });
@@ -101,8 +101,8 @@ sck.on('getcurrentvid', function (data) {
 			sck.user.obj.emit('');
 		} catch (err) {
 
-		}		
-	});	
+		}
+	});
 */
 });
 

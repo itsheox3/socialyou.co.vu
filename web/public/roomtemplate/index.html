@@ -15,8 +15,8 @@
 			}
 			//var generate = getRandomInt(1,123456789101112);
 			//var Generated = generate;
-		
-			sck.emit('registerusertoroom', { userid: Generated, roomid: paths[1] });	
+
+			sck.emit('registerusertoroom', { userid: Generated, roomid: paths[1] });
 				setTimeout(function () { document.getElementById('chat').innerHTML += "<b>"+Generated+", Welcome to room "+paths[1]+"!</b><br>"; }, 1000);
 			sck.on('message', function (data) {
 				if(data.roomid===paths[1] && data.action) {
@@ -54,7 +54,7 @@
 					sendMessage();
     				}
 			}
-		
+
 		</script>
 </head>
 	<body>
@@ -68,7 +68,7 @@
 			<button onclick='vidPlay()'>Play Video</button>
 			<br>
 			<br>
-			<div id='chat'></div>	
+			<div id='chat'></div>
 			<br>
 			<br>
 			<input type='text' id='text' onkeypress="return runScript(event)" />
