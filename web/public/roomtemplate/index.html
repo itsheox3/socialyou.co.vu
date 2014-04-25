@@ -42,9 +42,11 @@
 				//getDIV.innerHTML = '<object width= "560" height="315"><param name="movie" value="http://www.youtube.com/v/'+vidid.value+'&autoplay=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/'+vidid.value+'&autoplay=1" type="application/x-shockwave-flash" allowfullscreen="true" width="560" height="315" allowscriptaccess="always"></embed></object>';
 			}
 			function sendMessage() {
-				var getText1 = document.getElementById	('text').value;
-				if(getText1 != '') {
-					sck.emit('messagetoroom', { userid: Generated, roomid: paths[1], message: getText1, action: '' });
+				var textElement = document.getElementById('text');
+				var message = textElement.value;
+				textElement.value = '';  // Clear the input box.
+				if(message != '') {
+					sck.emit('messagetoroom', { userid: Generated, roomid: paths[1], message: message, action: '' });
 				}
 			}
 			function runScript(e) {
