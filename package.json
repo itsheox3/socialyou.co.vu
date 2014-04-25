@@ -1,0 +1,26 @@
+{
+  "name": "socialyou.co.vu",
+  "version": "0.0.0",
+  "description": "Awesome chatroom app",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.1.0",
+    "socket.io": "^0.9.16"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/clinr/socialyou.co.vu"
+  },
+  "keywords": [
+    "chatroom"
+  ],
+  "author": "Matt (Clinr)",
+  "bugs": {
+    "url": "https://github.com/clinr/socialyou.co.vu/issues"
+  },
+  "homepage": "https://github.com/clinr/socialyou.co.vu"
+}
